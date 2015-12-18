@@ -21,23 +21,17 @@ end
 
 class BelongsToOptions < AssocOptions
   def initialize(name, options = {})
-    @foreign_key = options[:foreign_key]
-    @class_name = options[:class_name]
-    @primary_key = options[:primary_key]
-    @foreign_key ||= "#{name}_id".to_sym
-    @class_name ||= "#{name.capitalize}"
-    @primary_key ||= :id
+    @foreign_key = options[:foreign_key] || "#{name}_id".to_sym
+    @class_name = options[:class_name] || "#{name.capitalize}"
+    @primary_key = options[:primary_key] || :id
   end
 end
 
 class HasManyOptions < AssocOptions
   def initialize(name, self_class_name, options = {})
-    @foreign_key = options[:foreign_key]
-    @class_name = options[:class_name]
-    @primary_key = options[:primary_key]
-    @foreign_key ||= "#{self_class_name.downcase}_id".to_sym
-    @class_name ||= "#{name.to_s.capitalize.singularize}"
-    @primary_key ||= :id
+    @foreign_key = options[:foreign_key] || "#{self_class_name.downcase}_id".to_sym
+    @class_name = options[:class_name] || "#{name.to_s.capitalize.singularize}"
+    @primary_key = options[:primary_key] || :id
   end
 end
 
@@ -49,7 +43,8 @@ module Associatable
 
     define_method(name) do
       foreign_key = self.send(options.foreign_key)
-      options.model_class.where(options.primary_key.to_sym => foreign_key).first
+      primary_key = options.primary_key
+      options.model_class.where(primary_key => foreign_key).first
     end
   end
 
@@ -57,8 +52,8 @@ module Associatable
     options = HasManyOptions.new(name, self.to_s, options)
 
     define_method(name) do
-      fkey = options.foreign_key
-      options.model_class.where(fkey => self.id)
+      foreign_key = options.foreign_key 
+      options.model_class.where(foreign_key => self.id)
     end
   end
 

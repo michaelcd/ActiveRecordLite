@@ -11,6 +11,8 @@ class SQLObject
         *
       FROM
         #{table_name}
+      LIMIT
+        1
     SQL
     @columns.first.map! {|column| column.to_sym}
   end
@@ -39,30 +41,28 @@ class SQLObject
 
   def self.all
     query = DBConnection.execute(<<-SQL)
-    SELECT
-      #{table_name}.*
-    FROM
-      #{table_name}
+      SELECT
+        #{table_name}.*
+      FROM
+        #{table_name}
     SQL
     parse_all(query)
   end
 
   def self.parse_all(results)
-    parsed_results = []
-    results.each do |hash|
-      parsed_results << self.new(hash)
-    end
-    parsed_results
+    results.map { |hash| self.new(hash) }
   end
 
   def self.find(id)
     query = DBConnection.execute(<<-SQL, id)
-    SELECT
-      *
-    FROM
-      #{table_name}
-    WHERE
-      #{table_name}.id = ?
+      SELECT
+        *
+      FROM
+        #{table_name}
+      WHERE
+        #{table_name}.id = ?
+      LIMIT
+        1
     SQL
     parse_all(query).first
   end
@@ -71,7 +71,7 @@ class SQLObject
     params.each do |attr_name, value|
       # byebug
       raise "unknown attribute '#{attr_name}'" unless self.class.columns.include?(attr_name.to_sym)
-      attr_name = (attr_name.to_s + "=").to_sym
+      attr_name = ("#{attr_name}=").to_sym
       send(attr_name, value)
     end
 
@@ -89,10 +89,10 @@ class SQLObject
     col_names = self.class.columns.join(", ")
     question_marks = (["?"] * (self.class.columns.length)).join(", ")
     DBConnection.execute(<<-SQL, *attribute_values)
-    INSERT INTO
-      #{self.class.table_name} (#{col_names})
-    VALUES
-      (#{question_marks})
+      INSERT INTO
+        #{self.class.table_name} (#{col_names})
+      VALUES
+        (#{question_marks})
     SQL
     self.id = DBConnection.last_insert_row_id
   end
@@ -101,21 +101,17 @@ class SQLObject
     set_line = self.class.columns.map {|attr| "#{attr} = ?"}
     set_line = set_line.join(", ")
     DBConnection.execute(<<-SQL, *attribute_values, self.id)
-    UPDATE
-      #{self.class.table_name}
-    SET
-      #{set_line}
-    WHERE
-      id = ?
+      UPDATE
+        #{self.class.table_name}
+      SET
+        #{set_line}
+      WHERE
+        id = ?
     SQL
   end
 
   def save
-    if id.nil?
-      insert
-    else
-      update
-    end
+    id.nil? ? insert : update
   end
 
 end
