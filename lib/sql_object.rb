@@ -66,7 +66,6 @@ class SQLObject
 
   def initialize(params = {})
     params.each do |attr_name, value|
-      # byebug
       raise "unknown attribute '#{attr_name}'" unless self.class.columns.include?(attr_name.to_sym)
       attr_name = ("#{attr_name}=").to_sym
       send(attr_name, value)
