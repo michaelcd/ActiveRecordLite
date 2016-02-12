@@ -1,12 +1,10 @@
-require_relative '03_associatable'
+require_relative 'associatable'
 
-# Phase IV
 module Associatable
-  # Remember to go back to 04_associatable to write ::assoc_options
 
   def has_one_through(name, through_name, source_name)
     define_method(name) do
-      
+
       through_options = self.class.assoc_options[through_name]
       source_options = through_options.model_class.assoc_options[source_name]
       src_table = source_options.model_class.table_name
@@ -29,12 +27,3 @@ module Associatable
     end
   end
 end
-
-# SELECT
-#   houses.*
-# FROM
-#   humans
-# JOIN
-#   houses ON humans.house_id = houses.id
-# WHERE
-#   humans.id = ?
