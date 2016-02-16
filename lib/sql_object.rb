@@ -110,4 +110,15 @@ class SQLObject
     id.nil? ? insert : update
   end
 
+
+  def delete
+    DBConnection.execute(<<-SQL, id)
+      DELETE FROM
+        #{self.class.table_name}
+      WHERE
+        id = ?
+    SQL
+  end
+
+  alias_method :destroy, :delete
 end
