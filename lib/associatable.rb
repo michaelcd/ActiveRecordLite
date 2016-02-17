@@ -1,6 +1,5 @@
 require_relative 'searchable'
 require 'active_support/inflector'
-require 'byebug'
 
 class AssocOptions
   attr_accessor(
@@ -54,7 +53,7 @@ module Associatable
       options.model_class.where(foreign_key => self.id)
     end
   end
-  
+
   def has_one_through(name, through_name, source_name)
     define_method(name) do
 
