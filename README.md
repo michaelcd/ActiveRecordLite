@@ -1,6 +1,6 @@
 #ActiveRecord Lite
 
-An ORM built to duplicate the methods of Ruby on Rails' ActiveRecord. Abstracts complex SQL queries to Ruby objects via modules and inheritance.
+An ORM inspired by Ruby on Rails' ActiveRecord. Abstracts complex SQL queries to Ruby objects via modules and inheritance.
 
 ## Methods
 * `SQLObject::all` returns all rows within the object's corresponding table.
