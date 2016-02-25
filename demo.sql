@@ -1,43 +1,41 @@
-CREATE TABLE cats (
+CREATE TABLE cards (
   id INTEGER PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  owner_id INTEGER,
+  title VARCHAR(255) NOT NULL,
+  list_id INTEGER,
 
-  FOREIGN KEY(owner_id) REFERENCES human(id)
+  FOREIGN KEY(list_id) REFERENCES list(id)
 );
 
-CREATE TABLE humans (
+CREATE TABLE lists (
   id INTEGER PRIMARY KEY,
-  fname VARCHAR(255) NOT NULL,
-  lname VARCHAR(255) NOT NULL,
-  house_id INTEGER,
+  title VARCHAR(255) NOT NULL,
+  board_id INTEGER,
 
-  FOREIGN KEY(house_id) REFERENCES human(id)
+  FOREIGN KEY(board_id) REFERENCES board(id)
 );
 
-CREATE TABLE houses (
+CREATE TABLE boards (
   id INTEGER PRIMARY KEY,
-  address VARCHAR(255) NOT NULL
+  title VARCHAR(255) NOT NULL
 );
 
 INSERT INTO
-  houses (id, address)
+  boards (id, title)
 VALUES
-  (1, "26th and Guerrero"), (2, "Dolores and Market");
+  (1, "Programming"), (2, "Kanban Board 2");
 
 INSERT INTO
-  humans (id, fname, lname, house_id)
+  lists (id, title, board_id)
 VALUES
-  (1, "Devon", "Watts", 1),
-  (2, "Matt", "Rubens", 1),
-  (3, "Ned", "Ruggeri", 2),
-  (4, "Catless", "Human", NULL);
+  (1, "Languages", 1),
+  (2, "Frameworks", 1);
 
 INSERT INTO
-  cats (id, name, owner_id)
+  cards (id, title, list_id)
 VALUES
-  (1, "Breakfast", 1),
-  (2, "Earl", 2),
-  (3, "Haskell", 3),
-  (4, "Markov", 3),
-  (5, "Stray Cat", NULL);
+  (1, "JavaScript", 1),
+  (2, "Ruby", 1),
+  (3, "Python", 1),
+  (4, "jQuery", 2),
+  (5, "React.js", 2),
+  (6, "Ruby on Rails", 2);
