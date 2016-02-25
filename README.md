@@ -4,6 +4,14 @@ An ORM inspired by Ruby on Rails' ActiveRecord. Abstracts complex SQL queries to
 
 ## How to use in your project
 
+### Setting up a database
+
+ActiveRecordLite was created and setup using [SQLite3]
+
+[SQLite3] 
+
+### Using the SQLObject class
+
 Require `active_record_lite.rb` in your project, and when creating an object set it to inherit from `SQLObject`.
 
 ```ruby
