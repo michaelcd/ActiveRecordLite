@@ -6,9 +6,13 @@ An ORM inspired by Ruby on Rails' ActiveRecord. Abstracts complex SQL queries to
 
 ### Setting up a database
 
-ActiveRecordLite was created and setup using [SQLite3]
+ActiveRecordLite was built using [SQLite3]. SQLite must be installed as well as the `sqlite3` gem.
 
-[SQLite3] 
+This repo has a demo.sql file containing SQL commands to setup tables and insert data, and will save the database to demo.db. `DBConnection::reset` will delete the demo.db and re-run the demo.sql file.
+
+To use in your own project, change the `DEMO_SQL_FILE` and `DEMO_DB_FILE` constants in db_connection.rb to point to your own files.
+
+[SQLite3]: https://www.sqlite.org
 
 ### Using the SQLObject class
 
