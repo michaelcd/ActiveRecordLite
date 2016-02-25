@@ -1,4 +1,4 @@
-#ActiveRecord Lite
+#ActiveRecordLite
 
 An ORM inspired by Ruby on Rails' ActiveRecord. Abstracts complex SQL queries to Ruby objects via modules and inheritance.
 
