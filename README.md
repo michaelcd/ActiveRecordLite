@@ -19,12 +19,14 @@ To use in your own project, change the `DEMO_SQL_FILE` and `DEMO_DB_FILE` consta
 Require `active_record_lite.rb` in your project, and when creating an object set it to inherit from `SQLObject`.
 
 ```ruby
-class Example < SQLObject
-  def example_method
-    puts "example"
-  end
+class List < SQLObject
+  belongs_to :board, foreign_key: :board_id
+  has_many :cards, foreign_key: :list_id
+  finalize!
 end
 ```
+
+More examples can be seen in the demo.rb file.
 
 ## Methods
 * `SQLObject::all` returns all rows within the object's corresponding table.
