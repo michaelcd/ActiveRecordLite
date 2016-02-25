@@ -28,7 +28,8 @@ INSERT INTO
   lists (id, title, board_id)
 VALUES
   (1, "Languages", 1),
-  (2, "Frameworks", 1);
+  (2, "Frameworks", 1),
+  (3, "Libraries", 1);
 
 INSERT INTO
   cards (id, title, list_id)
@@ -38,4 +39,5 @@ VALUES
   (3, "Python", 1),
   (4, "jQuery", 2),
   (5, "React.js", 2),
-  (6, "Ruby on Rails", 2);
+  (6, "Ruby on Rails", 2),
+  (7, "Flux", NULL);
