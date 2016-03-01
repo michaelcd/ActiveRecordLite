@@ -35,7 +35,7 @@ More examples can be seen in the demo.rb file.
 * `::where(params)` takes a hash as an argument and executes an SQL query based on the keys/values in the hash, then returns an array of SQLObjects representing the database records.
 * `::belongs_to(name, options)` creates a `BelongsToOptions` instance to create the association between two database tables, then creates a `name` method to access the associated object.
 * `::has_many(name, options)` creates a `HasManyOptions` instance to create the association between two database tables, then creates a `name` method to access the associated objects.
-* `::has_many_through(name, through_name, source_name)` defines a relationship between two SQLObjects through two `#belongs_to` relationships. Defines a method, `name`, that returns a SQLObject whose `#model_name` corresponds to the `source_name`.
+* `::has_many_through(name, through_name, source_name)` defines a relationship between two SQLObjects through two `::belongs_to` relationships. Defines a method, `name`, that returns a SQLObject whose `#model_name` corresponds to the `source_name`.
 * `#insert` creates new row in the database with the SQLObject's attributes and assigns an id.
 * `#update` updates corresponding row in database table with attributes from object in Ruby.
 * `#save` inserts or updates SQLObject based on id.nil?
